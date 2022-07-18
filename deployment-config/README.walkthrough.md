@@ -48,7 +48,7 @@ $ sed 's/S3_BUCKET/'"$S3_BUCKET"'/g' deployment-config/json/bucket-policy-templa
 $ aws s3api put-bucket-policy --bucket $S3_BUCKET --policy file://deployment-config/json/bucket-policy.json
 $ aws s3 website s3://$S3_BUCKET --index-document index.html
 
-#### STEP 2d Auxiliary
+### STEP 2d Auxiliary
 
 $ aws s3api put-public-access-block \
  --bucket $S3_BUCKET \
