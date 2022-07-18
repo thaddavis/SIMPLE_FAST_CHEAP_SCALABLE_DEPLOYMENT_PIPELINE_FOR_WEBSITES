@@ -1,0 +1,17 @@
+S3_BUCKET=<YOUR_BUCKET_NAME_HERE>
+CLOUDFRONT_DISTRO_ID=<YOUR_CLOUDFRONT_DISTRO_ID_HERE>
+export AWS_PROFILE=<YOUR_AWS_IAM_PROFILE_HERE>
+
+branch=$(git symbolic-ref HEAD | sed -e "s/^refs\/heads\///");
+
+echo Current branch is: $branch
+
+if [ "master" == "$branch" ]; then
+  # npm install
+  npm run build
+  aws s3 rm --recursive s3://$S3_BUCKET
+  aws s3 sync ./build s3://$S3_BUCKET
+  echo 'INVALIDATING CLOUDFRONT DISTRIBUTION'
+  res=$(aws cloudfront create-invalidation --distribution-id $CLOUDFRONT_DISTRO_ID --paths "/*")
+  echo 'UPDATE DEPLOYED'
+fi

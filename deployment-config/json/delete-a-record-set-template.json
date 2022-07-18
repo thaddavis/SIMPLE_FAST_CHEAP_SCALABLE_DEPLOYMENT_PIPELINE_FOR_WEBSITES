@@ -1,0 +1,17 @@
+{
+  "Comment": "Alias record for Cloudfront Distribution",
+  "Changes": [
+    {
+      "Action": "DELETE",
+      "ResourceRecordSet": {
+        "Name": "A_RECORD_NAME",
+        "Type": "A",
+        "AliasTarget": {
+          "HostedZoneId": "CLOUDFRONT_HOSTED_ZONE_ID",
+          "DNSName": "CLOUDFRONT_A_RECORD_VALUE",
+          "EvaluateTargetHealth": true
+        }
+      }
+    }
+  ]
+}
