@@ -18,6 +18,8 @@ S3_BUCKET_HOSTED_ZONE_ID=<YOUR_S3_BUCKET_HOSTED_ZONE_ID_HERE>
 
 CLOUDFRONT_HOSTED_ZONE_ID=<YOUR_CLOUDFRONT_HOSTED_ZONE_ID_HERE>
 
+ROUTE53_HOSTED_ZONE_ID=<YOUR_ROUTE53_HOSTED_ZONE_ID_HERE>
+
 #### Check out ---> # https://docs.aws.amazon.com/general/latest/gr/cf_region.html
 
 IDEMPOTENCY_TOKEN=$(uuidgen | tr -d '\n-' | tr '[:upper:]' '[:lower:]' | cut -c1-6)
@@ -29,6 +31,7 @@ CLOUDFRONT_CALLER_REFERENCE_TOKEN=$(uuidgen | tr -d '\n-' | tr '[:upper:]' '[:lo
 ### STEP 1a - Sanity Checks
 
 $ aws --version
+
 $ aws s3api help
 
 ## STEP 2
@@ -46,6 +49,7 @@ $ sed 's/S3_BUCKET/'"$S3_BUCKET"'/g' deployment-config/json/bucket-policy-templa
 ### STEP 2c - Setup Bucket for Hosting
 
 $ aws s3api put-bucket-policy --bucket $S3_BUCKET --policy file://deployment-config/json/bucket-policy.json
+
 $ aws s3 website s3://$S3_BUCKET --index-document index.html
 
 ### STEP 2d Auxiliary
@@ -59,7 +63,7 @@ $ aws s3api put-public-access-block \
 
 ## STEP 3
 
-TIP: aws acm list-certificates --region us-east-1
+TIP: aws acm list-certificates --region $AWS_REGION
 
 ACM_CERTIFICATE_ARN=$(aws acm request-certificate --domain-name $S3_BUCKET --validation-method DNS --idempotency-token $IDEMPOTENCY_TOKEN --region us-east-1 | jq '.CertificateArn')
 
@@ -89,14 +93,14 @@ TIP: To delete record, change action in `a-record-set.json` from "Action": "CREA
 
 ### STEP 4e
 
-$ aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch file://deployment-config/json/a-record-set.json --profile s3_user --region us-east-1
+$ aws route53 change-resource-record-sets --hosted-zone-id $HOSTED_ZONE_ID --change-batch file://deployment-config/json/a-record-set.json --profile $AWS_PROFILE --region $AWS_REGION
 
 ### STEP 4f - auxiliary tips
 
 TIP: https://docs.aws.amazon.com/general/latest/gr/s3.html - for getting hosted zone id of the s3 region
 TIP: https://docs.aws.amazon.com/general/latest/gr/cf_region.html - for getting hosted zone if of the CloudFront distribution
 
-$ aws route53 list-resource-record-sets --hosted-zone-id Z098018037P2EA9EDT4PM
+$ aws route53 list-resource-record-sets --hosted-zone-id <ROUTE53_HOSTED_ZONE_ID>
 $ aws s3api get-bucket-website --bucket cmdsoftware.io
 
 ## STEP 5
