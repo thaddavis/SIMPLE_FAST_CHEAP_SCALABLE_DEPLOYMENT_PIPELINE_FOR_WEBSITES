@@ -1,4 +1,4 @@
-# TLDR - Walkthrough of aws-cli commands for your entertainment
+# TLDR - Walkthrough of aws-cli commands for your entertainment.
 
 ## CONFIG
 
