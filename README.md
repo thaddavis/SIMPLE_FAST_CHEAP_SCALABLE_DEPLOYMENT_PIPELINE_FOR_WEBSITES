@@ -1,14 +1,18 @@
 # To make scripts executable
 
 chmod +x setup_static_site_deployment.sh
+
 chmod +x teardown_static_site_deployment.sh
+
 chmod +x post-merge
 
 
 # Reference material
 
 https://blog.puppy.vn/md/bash-script-create-and-validate-acm-certificate-aws
+
 https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks
+
 https://www.atlassian.com/git/tutorials/git-hooks
 
 # Auxiliary tips
