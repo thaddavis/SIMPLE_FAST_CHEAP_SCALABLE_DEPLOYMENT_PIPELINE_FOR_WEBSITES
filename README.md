@@ -14,7 +14,9 @@ https://www.atlassian.com/git/tutorials/git-hooks
 # Auxiliary tips
 
 TIP: aws acm list-certificates --region us-east-1
-TIP: to delete record, change action in `a-record-set.json` from "Action": "CREATE" -> "Action": "DELETE" ie: `delete-a-record-set-template.json`
-TIP: https://docs.aws.amazon.com/general/latest/gr/s3.html - for getting hosted zone id of the s3 region
-TIP: https://docs.aws.amazon.com/general/latest/gr/cf_region.html - for getting hosted zone if of the CloudFront 
 
+TIP: to delete record, change action in `a-record-set.json` from "Action": "CREATE" -> "Action": "DELETE" ie: `delete-a-record-set-template.json`
+
+TIP: https://docs.aws.amazon.com/general/latest/gr/s3.html - for getting hosted zone id of the s3 region
+
+TIP: https://docs.aws.amazon.com/general/latest/gr/cf_region.html - for getting hosted zone if of the CloudFront
